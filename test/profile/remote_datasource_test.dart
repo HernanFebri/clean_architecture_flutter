@@ -11,10 +11,10 @@ import 'package:mockito/mockito.dart';
 import 'remote_datasource_test.mocks.dart';
 
 void main() async {
-  // Create mock object.
   var remoteDataSource = MockProfileRemoteDataSource();
 
   const int userId = 1;
+  const int page = 1;
 
   ProfileModel fakeProfileModel = const ProfileModel(
     id: userId,
@@ -24,46 +24,77 @@ void main() async {
     avatar: "https://image.com/$userId",
   );
 
-  group(
-    "Profile Remote Data Source",
-    () {
-      test(
-        "BERHASIL",
-        () async {
-          // Stub -> kondisi untuk kita palsukan
-          // Proses Stubbing
-          when(remoteDataSource.getUser(userId)).thenAnswer(
-            (_) async => fakeProfileModel,
-          );
+  group("Profile Remote Data Source", () {
+    group("getUser()", () {
+      test("BERHASIL", () async {
+        // Stub -> kondisi untuk kita palsukan
+        // Proses Stubbing
+        when(remoteDataSource.getUser(userId)).thenAnswer(
+          (_) async => fakeProfileModel,
+        );
 
-          try {
-            var respose = await remoteDataSource.getUser(userId);
-            print(respose.toJson());
-            // TESTING UNTUK KEBERHASILAN
-          } catch (e) {
-            // TIDAK MUNGKIN TERJADI ERROR
-            print(e);
-          }
-        },
-      );
+        try {
+          var respose = await remoteDataSource.getUser(userId);
 
-      test(
-        "GAGAL",
-        () async {
-          // Stub -> kondisi untuk kita palsukan
-          // Proses Stubbing
-          when(remoteDataSource.getUser(userId)).thenThrow(Exception());
+          expect(respose, fakeProfileModel);
+          // TESTING UNTUK KEBERHASILAN
+        } catch (e) {
+          // TIDAK MUNGKIN TERJADI ERROR
+          fail("TIDAK MUNGKIN TERJADI ");
+        }
+      });
 
-          try {
-            var respose = await remoteDataSource.getUser(userId);
-            print(respose.toJson());
-            // TIDAK MUNGKIN TERJADI ERROR
-          } catch (e) {
-            // TESTING UNTUK KEGAGALAN
-            print(e);
-          }
-        },
-      );
-    },
-  );
+      test("GAGAL", () async {
+        // Stub -> kondisi untuk kita palsukan
+        // Proses Stubbing
+        when(remoteDataSource.getUser(userId)).thenThrow(Exception());
+
+        try {
+          var respose = await remoteDataSource.getUser(userId);
+
+          fail("TIDAK MUNGKIN TERJADI");
+          // TIDAK MUNGKIN TERJADI ERROR
+        } catch (e) {
+          // TESTING UNTUK KEGAGALAN
+          expect(e, isException);
+        }
+      });
+    });
+
+    group("getAllUser()", () {
+      test("BERHASIL", () async {
+        // Stub -> kondisi untuk kita palsukan
+        // Proses Stubbing
+        when(remoteDataSource.getAllUser(page)).thenAnswer(
+          (_) async => [fakeProfileModel],
+        );
+
+        try {
+          var respose = await remoteDataSource.getAllUser(page);
+
+          expect(respose, [fakeProfileModel]);
+          // TESTING UNTUK KEBERHASILAN
+        } catch (e) {
+          // TIDAK MUNGKIN TERJADI ERROR
+          fail("TIDAK MUNGKIN TERJADI ");
+        }
+      });
+
+      test("GAGAL", () async {
+        // Stub -> kondisi untuk kita palsukan
+        // Proses Stubbing
+        when(remoteDataSource.getAllUser(page)).thenThrow(Exception());
+
+        try {
+          var respose = await remoteDataSource.getAllUser(page);
+
+          fail("TIDAK MUNGKIN TERJADI");
+          // TIDAK MUNGKIN TERJADI ERROR
+        } catch (e) {
+          // TESTING UNTUK KEGAGALAN
+          expect(e, isException);
+        }
+      });
+    });
+  });
 }
