@@ -12,9 +12,9 @@ import '../models/profile_model.dart';
 class ProfileRepositoryImplementation extends ProfileRepository {
   final ProfileRemoteDataSource profileRemoteDataSource;
   final ProfileLocalDataSource profileLocalDataSource;
-  final HiveInterface hive;
+  final Box box;
 
-  ProfileRepositoryImplementation(this.hive,
+  ProfileRepositoryImplementation(this.box,
       {required this.profileRemoteDataSource,
       required this.profileLocalDataSource});
 
@@ -35,7 +35,7 @@ class ProfileRepositoryImplementation extends ProfileRepository {
         List<ProfileModel> hasil =
             await profileRemoteDataSource.getAllUser(page);
         // Put last data profile ke Box Local
-        var box = hive.box("profile_box");
+
         box.put("getAllUser", hasil);
         return Right(hasil);
       }
@@ -59,7 +59,7 @@ class ProfileRepositoryImplementation extends ProfileRepository {
         // Ngambil dari Remote
         ProfileModel hasil = await profileRemoteDataSource.getUser(id);
         // Put last data profile ke Box Local
-        var box = hive.box("profile_box");
+
         box.put("getUser", hasil);
         return Right(hasil);
       }
