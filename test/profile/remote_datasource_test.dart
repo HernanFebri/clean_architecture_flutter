@@ -16,6 +16,9 @@
 // OPEN HTML
 // >> open coverage/html/index.html
 
+// REMOVE
+// >> lcov -- remove coverage/lcov.info "lib/core/error/*" "lib/features/profile/data/models/*" -o coverage/lcov.info
+
 // MOCK -> ProfileRemoteDataSource
 
 import 'dart:convert';

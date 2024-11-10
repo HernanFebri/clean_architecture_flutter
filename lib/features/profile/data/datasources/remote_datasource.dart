@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:clean_architecture_flutter/core/error/exception.dart';
+import '../../../../core/error/exception.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/profile_model.dart';
