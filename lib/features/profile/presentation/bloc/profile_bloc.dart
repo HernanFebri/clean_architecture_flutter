@@ -14,7 +14,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final GetAllUser getAllUser;
   final GetUser getUser;
 
-  ProfileBloc(this.getAllUser, this.getUser) : super(ProfileStateEmpty()) {
+  ProfileBloc({
+    required this.getAllUser,
+    required this.getUser,
+  }) : super(ProfileStateEmpty()) {
     on<ProfileEventGetAllUsers>((event, emit) async {
       emit(ProfileStateLoading());
       Either<Failure, List<Profile>> hasilGetAllUser =
