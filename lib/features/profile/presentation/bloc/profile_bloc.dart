@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
-import '../../domain/entities/profile.dart';
-import '../../domain/usecases/get_all_user.dart';
-import '../../domain/usecases/get_user.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../core/error/failure.dart';
+import '../../domain/entities/profile.dart';
+import '../../domain/usecases/get_all_user.dart';
+import '../../domain/usecases/get_user.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';
